@@ -32,13 +32,13 @@ def import_and_merge(qza_file_paths):
                         shutil.move(source_file, destination_file)
 
             biom_file_path = os.path.join(tax_table_folder, 'feature-table.biom')
-            if not os.path.exists(biom_file_path):
-                raise FileNotFoundError(f"The biom file '{biom_file_path}' does not exist.")
-
-            txt_file_path = os.path.join(tax_table_folder, 'rare_table.txt')
-            subprocess.run(['biom', 'convert', '-i', biom_file_path, '-o', txt_file_path, '--to-tsv'], check=True)
-
-            logging.info(f"Converted biom file to text file for {os.path.basename(qza_file_path)} into folder: {tax_table_folder}")
+            if os.path.exists(biom_file_path):
+                txt_file_path = os.path.join(tax_table_folder, 'rare_table.txt')
+                subprocess.run(['biom', 'convert', '-i', biom_file_path, '-o', txt_file_path, '--to-tsv'], check=True)
+                logging.info(f"Converted biom file to text file for {os.path.basename(qza_file_path)} into folder: {tax_table_folder}")
+            else:
+                logging.warning(f"The biom file '{biom_file_path}' does not exist. Skipping conversion for {qza_file_path}.")
+                continue  # Skip this iteration if the biom file is missing
 
             taxonomy_path = os.path.join(tax_table_folder, 'taxonomy.tsv')
             taxa = pd.read_table(taxonomy_path, index_col=0)
@@ -68,5 +68,3 @@ def import_and_merge(qza_file_paths):
 # qza_file_paths = ['/content/taxonomy.qza', '/content/core-metrics-results/rarefied_table.qza']
 # merged_tables = import_and_merge(qza_file_paths)
 
-
-  

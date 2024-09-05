@@ -4,7 +4,7 @@ from qiime2pandas.process_stats_files import process_stats_files
 
 def test_process_stats_files(tmpdir):
     # Get the path to the example.stats file
-    test_file_path = os.path.join(os.path.dirname(__file__), 'test_files', 'example.stats')
+    test_file_path = os.path.join(os.path.dirname(__file__), 'test_files', 'data.stats')
 
     # Copy the example .stats file to the temporary directory (tmpdir)
     tmpdir_path = tmpdir.mkdir("testdata")

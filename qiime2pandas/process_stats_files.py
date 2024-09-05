@@ -34,20 +34,17 @@ def process_stats_files(directory, maxEE_level, output_csv='maxEE_summary.csv'):
         if filename.endswith('.stats'):
             filepath = os.path.join(directory, filename)
 
-         
             with open(filepath, 'r') as file:
                 lines = file.readlines()
 
-            
             data_lines = lines[4:]  # Extract the data lines (skip header and separator)
 
             # Prepare the data for the DataFrame
             data = []
             for line in data_lines:
-                
                 parts = line.strip().split()
 
-                
+                # Select the Length and the desired MaxEE column
                 selected_parts = [
                     parts[0],  # Length
                     parts[maxEE_map[maxEE_level]].split('(')[0]  # Selected MaxEE level
@@ -55,11 +52,12 @@ def process_stats_files(directory, maxEE_level, output_csv='maxEE_summary.csv'):
 
                 data.append(selected_parts)
 
-            
+            # Create DataFrame with the selected columns
             df = pd.DataFrame(data, columns=['Length', maxEE_level])
 
-            
-            df = df.apply(pd.to_numeric, errors='ignore')
+            # Convert columns to numeric types; invalid parsing will be set to NaN
+            df['Length'] = pd.to_numeric(df['Length'], errors='coerce')
+            df[maxEE_level] = pd.to_numeric(df[maxEE_level], errors='coerce')
 
             
             df['File'] = filename
@@ -67,14 +65,14 @@ def process_stats_files(directory, maxEE_level, output_csv='maxEE_summary.csv'):
            
             dfs.append(df)
 
-   
+
     maxEE_summary = pd.concat(dfs, ignore_index=True)
 
-    
+    # Save the DataFrame as a CSV file
     output_path = os.path.join(directory, output_csv)
     maxEE_summary.to_csv(output_path, index=False)
 
     return maxEE_summary
 
-#Example useage
-#maxEE_summary = process_stats_files('/content/', 'MaxEE1')
+# Example usage:
+# maxEE_summary = process_stats_files('/content/', 'MaxEE1')

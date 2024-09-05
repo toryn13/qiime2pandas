@@ -11,7 +11,7 @@ def test_process_stats_files(tmpdir):
     test_file_copy = tmpdir_path.join("data.stats")
     test_file_copy.write(open(test_file_path).read())
 
-        maxEE_summary = process_stats_files(tmpdir_path, 'MaxEE1')
+    maxEE_summary = process_stats_files(tmpdir_path, 'MaxEE1')
 
 
     print(maxEE_summary)

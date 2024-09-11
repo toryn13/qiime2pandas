@@ -2,3 +2,4 @@ pandas
 numpy
 biom-format
 matplotlib>=3.0.0
+tqdm

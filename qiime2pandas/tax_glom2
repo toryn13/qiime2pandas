@@ -1,6 +1,6 @@
 import pandas as pd
 
-def tax_glom(df, taxonomic_level, sample_prefix="s"):
+def tax_glom_table(df, taxonomic_level, sample_prefix="s"):
     """
     Aggregate taxonomic information at the specified taxonomic level, summing only sample columns.
 

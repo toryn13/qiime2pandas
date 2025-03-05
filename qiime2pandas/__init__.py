@@ -9,7 +9,7 @@ from .tax_table import import_and_merge
 from .rare_curve import rarefaction_curve
 from .parse_sintax_and_merge import parse_sintax
 from .rarefy_otu_table import rarefy_otu_table
-
+from .tax_glom2 import tax_glom_table
 # Optional: Expose functions in the package namespace
 __all__ = [
     'extract_summary_stats',
@@ -21,4 +21,5 @@ __all__ = [
     'rarefaction_curve',
     'parse_sintax',
 'rarefy_otu_table'
+    'tax_glom2'
 ]

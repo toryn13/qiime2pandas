@@ -40,5 +40,5 @@ def tax_glom_table(df, taxonomic_level, sample_indices=None):
 
 # Example usage:
 # Use tax_glom to aggregate at the 'Phylum' level, summing columns with indices 1 to 10
-result = tax_glom_table(df, "Phylum", sample_indices=range(1, 11))
+# result = tax_glom_table(df, "Phylum", sample_indices=range(1, 11))
 
